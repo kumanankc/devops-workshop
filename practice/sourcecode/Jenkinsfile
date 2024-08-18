@@ -1,0 +1,15 @@
+pipeline {
+    agent {
+        node {
+            label 'maven'
+        }
+    }
+    
+    stages {
+        stage('clone-code') {
+            steps{
+                git branch: 'main', credentialsId: 'git-jenkins', url: 'https://github.com/kumanankc/Workshop-code.git'
+            }
+        }
+    }
+}
