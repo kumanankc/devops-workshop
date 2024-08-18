@@ -1,5 +1,5 @@
 variable "ami" {
-  default = "ami-0ae8f15ae66fe8cda"
+  default = "ami-04a81a99f5ec58529"
 }
 
 variable "instance_type" {
@@ -7,5 +7,5 @@ variable "instance_type" {
 }
 
 variable "aws_key_pair" {
-  default = "ansible_key"
+  default = "workshop_key"
 }
