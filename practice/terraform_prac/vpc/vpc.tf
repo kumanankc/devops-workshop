@@ -15,6 +15,16 @@ resource "aws_subnet" "public-subnet" {
   }
 }
 
+resource "aws_subnet" "private-subnet" {
+  vpc_id                  = aws_vpc.test-vpc.id
+  cidr_block              = "10.10.5.0/24"
+  availability_zone       = "us-east-1b"
+  map_public_ip_on_launch = "true"
+  tags = {
+    Name = "private-subnet"
+  }
+}
+
 resource "aws_internet_gateway" "test-igw" {
   vpc_id = aws_vpc.test-vpc.id
   tags = {
@@ -41,3 +51,15 @@ resource "aws_route_table_association" "test-rt-association" {
   route_table_id = aws_route_table.test-rt.id
 
 }
+
+ module "sgs" {
+    source = "../sg_eks"
+    vpc_id     =     aws_vpc.test-vpc.id
+ }
+
+  module "eks" {
+       source = "../eks"
+       vpc_id     =     aws_vpc.test-vpc.id
+       subnet_ids = [aws_subnet.public-subnet.id,aws_subnet.private-subnet.id]
+       sg_ids = module.sgs.security_group_public
+ }

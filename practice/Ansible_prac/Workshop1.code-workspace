@@ -5,6 +5,12 @@
 		},
 		{
 			"path": "../terraform_prac"
+		},
+		{
+			"path": "../../../Workshop-code"
+		},
+		{
+			"path": "../.."
 		}
 	],
 	"settings": {}

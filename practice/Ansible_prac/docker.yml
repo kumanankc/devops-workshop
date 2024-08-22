@@ -1,0 +1,27 @@
+---
+- name: Install Docker
+  hosts: slave
+  become: yes
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present 
+  
+    - name: Start Docker
+      service:
+        name: docker
+        state: started
+
+    - name: Give permissions to docker.sock file
+      file:
+         path: /var/run/docker.sock
+         mode: 0777
+         state: file
+
+    - name: Start docker on boot time
+      service:
+         name: docker
+         enabled: yes
+        
+        
